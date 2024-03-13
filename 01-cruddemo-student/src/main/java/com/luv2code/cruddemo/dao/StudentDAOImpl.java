@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 public class StudentDAOImpl implements StudentDAO {
 
     // define field for entity manager
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
 
     // inject using constructor injection
     public StudentDAOImpl(EntityManager entityManager) {
@@ -20,5 +20,10 @@ public class StudentDAOImpl implements StudentDAO {
     @Transactional
     public void save(Student student) {
         entityManager.persist(student);
+    }
+
+    @Override
+    public Student findById(Long id) {
+        return entityManager.find(Student.class, id);
     }
 }
